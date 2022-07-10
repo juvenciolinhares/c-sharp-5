@@ -16,5 +16,11 @@ namespace tabuleiro
             //criar a matriz de peças que vai ter esse numero de linhas por esse número de colunas informados no argumento.
             pecas = new Peca[linhas, colunas];
         }
+
+        //criar um método pra dar acesso a uma peça individual  do tabuleiro
+        public Peca peca(int linha, int coluna)
+        {
+            return pecas[linha, coluna];
+        }
     }
 }
