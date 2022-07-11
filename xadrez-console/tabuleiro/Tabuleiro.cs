@@ -5,7 +5,7 @@ namespace tabuleiro
     {
         public int linhas { get; set; }
         public int colunas { get; set; }
-        private Peca [,] pecas;// matriz de pecas.só pode ser acessada pela própria classe
+        private Peca[,] pecas;// matriz de pecas.só pode ser acessada pela própria classe
 
         public Tabuleiro(int linhas, int colunas)
         {
@@ -49,10 +49,30 @@ namespace tabuleiro
 
         }
 
+        //retirar uma peça:
+        public Peca retirarPeca(Posicao pos)
+        {
+            //se não tiver peça(==null) retorna null;
+            if (peca(pos) == null)
+            {
+                return null;
+            }
+
+            // se tiver peça, cria uma var auxiliar recebendo a peça informada
+            Peca aux = peca(pos);
+            //aux nula = foi retirada do tabuleiro
+            aux.posicao = null; 
+
+            // a posição que estava essa peça vai ser nula
+            pecas[pos.linha, pos.coluna] = null;
+            return aux;
+
+        }
+
         //metodo pra testar se a posição pos é válida ou não:
         public bool posicaoValida(Posicao pos)
         {
-            if(pos.linha < 0 || pos.linha>= linhas || pos.coluna< 0 || pos.coluna>= colunas)
+            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas)
             {
                 return false;
             }

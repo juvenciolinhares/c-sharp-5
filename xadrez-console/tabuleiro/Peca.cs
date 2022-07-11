@@ -16,5 +16,10 @@ namespace tabuleiro
             this.QuantidadeDeMovimentos = 0;// quando a peça é criada, tem 0 movimentos
 
         }
+
+        public void incrementarQuantidadeDeMovimentos()
+        {
+            QuantidadeDeMovimentos++;
+        }
     }
 }

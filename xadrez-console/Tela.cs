@@ -1,6 +1,6 @@
 ﻿using tabuleiro;
 using System;
-
+using xadrez;
 namespace xadrez_console
 {
     internal class Tela
@@ -31,6 +31,17 @@ namespace xadrez_console
 
             //colunas abcdefgh:
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        //esse método vai ler do teclado o que o usuario digitar(exemplo: c,2)
+        public static PosicaoXadrez lerPosicaoXadrez()
+        {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new PosicaoXadrez(coluna, linha);
+
+
         }
 
         //cor da peça preta => AMARELA
