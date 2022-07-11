@@ -1,5 +1,6 @@
 ﻿using tabuleiro;
 using System;
+
 namespace xadrez_console
 {
     internal class Tela
@@ -18,7 +19,7 @@ namespace xadrez_console
                     }
                     else
                     {
-                        
+
                         Console.Write(tab.peca(i, j) + " ");// acessa o obj tab, o metodo peca passa i,j como arguemento
                     }
 
