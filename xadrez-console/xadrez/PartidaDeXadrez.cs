@@ -79,10 +79,19 @@ namespace xadrez
             {
                 xeque = false;
             }
-            turno++;
+            if (testeXequemate(adversaria(jogadorAtual)))
+            {
+                terminada = true;
+            }
+            else
+            {
+                //passa o turno
+                turno++;
 
-            //inverter o jogador 
-            mudaJogador();
+                //inverter o jogador 
+                mudaJogador();
+            }
+           
         }
 
         //testar se a posição de origem é válida:
@@ -199,6 +208,39 @@ namespace xadrez
                 }
             }
             return false;//rei não está em cheque.
+        }
+
+        public bool testeXequemate(Cor cor)
+        {
+            if (!estaEmXeque(cor))//se o rei não está em xeque
+            {
+                return false;
+            }
+
+            foreach(Peca x in pecasEmJogo(cor))
+            {
+                bool[,] mat = x.movimentosPossiveis();
+                for(int i = 0; i < tab.linhas; i++)
+                {
+                    for (int j = 0; j < tab.colunas; j++)
+                    {
+                        if (mat[i, j])//posicao possivel pra peça x.
+                        {
+                            Posicao origem = x.posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = executaMovimento(origem, destino);//faz o motimento
+                            bool testeXeque = estaEmXeque(cor);//esta se ainda está em xeque
+                            desfazMovimento(origem, destino, pecaCapturada);//desfaz o movimento
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         //dado uma coluna, linha e peça, eu coloco isso no tabuleiro da partida
