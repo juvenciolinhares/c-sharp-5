@@ -1,11 +1,48 @@
 ﻿using tabuleiro;
 using System;
 using xadrez;
+using System.Collections.Generic;
 
 namespace xadrez_console
 {
     internal class Tela
     {
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);//diz quais peças foram capturadas
+            Console.WriteLine();    
+
+            //informar de quem é a vez:
+            Console.WriteLine("Turno: " + partida.turno);
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+
+        }
+
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Pecas capturadas: ");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));//brancas capturadas
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;//passa a cor original p uma var auxiliar
+            Console.ForegroundColor = ConsoleColor.Yellow;//cor das "pretas"
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));//pretas capturadas
+            Console.ForegroundColor = aux;//depois de imprimir amarelo p pretas, volta a cor normal
+            Console.WriteLine();
+        }
+
+        public static void imprimirConjunto (HashSet<Peca> conjunto)
+        {
+            Console.Write("[");
+            foreach(Peca x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
             //método para imprimir o tabuleiro na tela(criar uma matriz)
