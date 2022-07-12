@@ -2,7 +2,7 @@
 
 namespace tabuleiro
 {
-    internal class Peca//classe genéria, peça qualquer(rainha, rei, bispo cavelo, etc.)
+    abstract class Peca//classe genéria, peça qualquer(rainha, rei, bispo cavelo, etc.)
     {
         public Posicao posicao { get; set; }// associação com a classe posicao
         public Cor cor { get; protected set; }// protected: alterada apenas pelas classes e subclasses
@@ -21,5 +21,9 @@ namespace tabuleiro
         {
             QuantidadeDeMovimentos++;
         }
+
+        //essa clase vai ser implementada na classe de cada peça(rei, torre, etc.) pra dar o moviemto especifico de cada uma
+        public abstract bool[,] movimentosPossiveis();
+        
     }
 }
