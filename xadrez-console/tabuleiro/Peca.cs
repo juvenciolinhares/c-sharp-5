@@ -22,8 +22,29 @@ namespace tabuleiro
             QuantidadeDeMovimentos++;
         }
 
+        public bool existeMovimentosPossiveis()
+        {
+            bool[,] mat = movimentosPossiveis();
+            for (int i = 0; i < tab.linhas; i++)
+            {
+                for (int j = 0; j < tab.colunas; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;//se retorna falso é pq passou pelo for e não tem nenhum movimento possivel
+        }
+
+        //testar se posso mover para determinada posição
+       public bool podeMoverPara(Posicao pos)
+        {
+            return movimentosPossiveis()[pos.linha, pos.coluna];
+        }
         //essa clase vai ser implementada na classe de cada peça(rei, torre, etc.) pra dar o moviemto especifico de cada uma
         public abstract bool[,] movimentosPossiveis();
-        
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using tabuleiro;
 using System;
 using xadrez;
+
 namespace xadrez_console
 {
     internal class Tela

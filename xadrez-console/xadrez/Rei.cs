@@ -19,7 +19,7 @@ namespace xadrez
         private bool podeMover(Posicao pos)
         {
             Peca p = tab.peca(pos);
-            return p == null || p.cor != this.cor; //significa que a casa ta livre pro rei se mover ou a peça é adversária(cor diferente)
+            return p == null || p.cor != cor; //significa que a casa ta livre pro rei se mover ou a peça é adversária(cor diferente)
 
         }
 

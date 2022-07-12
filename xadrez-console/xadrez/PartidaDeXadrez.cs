@@ -7,8 +7,8 @@ namespace xadrez
     {
         //atributos:
         public Tabuleiro tab { get; private set; }
-        private int turno;//cada jogada 
-        private Cor jogadorAtual;
+        public int turno { get; private set; }//cada jogada 
+        public Cor jogadorAtual { get; private set; }
         public bool terminada { get; private set; }
 
         public PartidaDeXadrez()
@@ -30,6 +30,55 @@ namespace xadrez
             tab.colocarPeca(p, destino);
         }
 
+        public void realizaJogada(Posicao origem, Posicao destino)
+        {
+            executaMovimento(origem, destino);
+            turno++;
+
+            //inverter o jogador 
+            mudaJogador();
+        }
+
+        //testar se a posição de origem é válida:
+        public void validarPosicaoDeOrigem(Posicao pos)
+        {
+            if (tab.peca(pos) == null)//se não existe peça naquela posição
+            {
+                throw new TabuleiroException("Não existe peça na posição de origem escolhida!");
+            }
+            if (jogadorAtual != tab.peca(pos).cor)// só posso escolher a peça correrpondente a jogador atual
+            {
+                throw new TabuleiroException("A peça de origem escolhida não é sua");
+            }
+            if (!tab.peca(pos).existeMovimentosPossiveis())//se a peça esta bloqueada(não existe movimente(jogada) possivel)
+            {
+                throw new TabuleiroException("Não há movimentos possiveis para a peça de origem esolhida");
+            }
+        }
+
+        public void validarPosicaoDeDestino(Posicao origem, Posicao destino)
+        {
+            //se a peça de origem nao pode mover para a posicao de destino
+            if (!tab.peca(origem).podeMoverPara(destino))
+            {
+                throw new TabuleiroException("Posião de destino inválida");
+
+            }
+        }
+
+        //inverter o jogador se for branco passa pra preto, vice-versa
+        private void mudaJogador()
+        {
+            if (jogadorAtual == Cor.Branca)
+            {
+                jogadorAtual = Cor.Preta;
+            }
+            else
+            {
+                jogadorAtual = Cor.Branca;
+            }
+        }
+
         private void colocarPecas()
         {
             //criar as peças e coloca-las em posições(new Posicao(0,0))) no tabuleiro
@@ -49,6 +98,6 @@ namespace xadrez
 
 
         }
-        
+
     }
 }

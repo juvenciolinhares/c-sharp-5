@@ -9,7 +9,7 @@ namespace tabuleiro
         //construtor
         public TabuleiroException(string msg) : base(msg)
         {
-            Console.WriteLine();
+            
         }
     }
 }
