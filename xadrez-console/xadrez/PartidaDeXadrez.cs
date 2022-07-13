@@ -39,6 +39,26 @@ namespace xadrez
                 //se eu capturar alguma peça, ela vai ser inserida no conjunto de pecas capturadas
                 capturadas.Add(pecaCapturada);
             }
+
+            //#jogada especia Roque pequeno:
+            if(p is Rei && destino.coluna == origem.coluna + 2)//movi o rei 2 casas, tbm tenho que mexer a torre
+            {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);//posicao origem da torre
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna + 1);//posicao destino da torre
+                Peca T = tab.retirarPeca(origemT);
+                T.incrementarQuantidadeDeMovimentos();
+                tab.colocarPeca(T, destinoT);
+            }
+            //#jogada especia Roque GRANDE:
+            if (p is Rei && destino.coluna == origem.coluna - 2)//movi o rei 2 casas, tbm tenho que mexer a torre
+            {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna - 4);//posicao origem da torre
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna - 1);//posicao destino da torre
+                Peca T = tab.retirarPeca(origemT);
+                T.incrementarQuantidadeDeMovimentos();
+                tab.colocarPeca(T, destinoT);
+            }
+
             return pecaCapturada;
         }
 
@@ -57,6 +77,25 @@ namespace xadrez
                 capturadas.Remove(pecaCapturada);//remover peça do conjunto das peças capturadas
             }
             tab.colocarPeca(p, origem);
+            //#jogada especia Roque pequeno:
+            if (p is Rei && destino.coluna == origem.coluna + 2)//movi o rei 2 casas, tbm tenho que mexer a torre
+            {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);//posicao origem da torre
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna + 1);//posicao destino da torre
+                Peca T = tab.retirarPeca(destinoT);
+                T.decrementarQuantidadeDeMovimentos();
+                tab.colocarPeca(T, origemT);
+            }
+            //#jogada especia Roque GRANDE:
+            if (p is Rei && destino.coluna == origem.coluna - 2)//movi o rei 2 casas, tbm tenho que mexer a torre
+            {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna - 4);//posicao origem da torre
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna - 1);//posicao destino da torre
+                Peca T = tab.retirarPeca(destinoT);
+                T.incrementarQuantidadeDeMovimentos();
+                tab.colocarPeca(T, origemT);
+            }
+
         }
 
         public void realizaJogada(Posicao origem, Posicao destino)
@@ -257,7 +296,7 @@ namespace xadrez
             colocarNovaPeca('b', 1, new Cavalo(tab, Cor.Branca));
             colocarNovaPeca('c', 1, new Bispo(tab, Cor.Branca));
             colocarNovaPeca('d', 1, new Dama(tab, Cor.Branca));
-            colocarNovaPeca('e', 1, new Rei(tab, Cor.Branca));
+            colocarNovaPeca('e', 1, new Rei(tab, Cor.Branca, this));
             colocarNovaPeca('f', 1, new Bispo(tab, Cor.Branca));
             colocarNovaPeca('g', 1, new Cavalo(tab, Cor.Branca));
             colocarNovaPeca('h', 1, new Torre(tab, Cor.Branca));
@@ -274,7 +313,7 @@ namespace xadrez
             colocarNovaPeca('b', 8, new Cavalo(tab, Cor.Preta));
             colocarNovaPeca('c', 8, new Bispo(tab, Cor.Preta));
             colocarNovaPeca('d', 8, new Dama(tab, Cor.Preta));
-            colocarNovaPeca('e', 8, new Rei(tab, Cor.Preta));
+            colocarNovaPeca('e', 8, new Rei(tab, Cor.Preta, this));
             colocarNovaPeca('f', 8, new Bispo(tab, Cor.Preta));
             colocarNovaPeca('g', 8, new Cavalo(tab, Cor.Preta));
             colocarNovaPeca('h', 8, new Torre(tab, Cor.Preta));
